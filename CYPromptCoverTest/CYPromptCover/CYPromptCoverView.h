@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, CYPromptCoverViewCoverType) {
 
 //is essential to bluredCoverType  0 — 1  default is 0.5
 @property(nonatomic,assign) CGFloat blurRadius;
-//is essential to coloredCoverType  default is 0 0 0 0.5
+//is essential to coloredCoverType  default is 0 0 0 0.8
 @property (nonatomic,strong) UIColor *coverColor;
 //white
 @property (nonatomic,strong,readonly) UIColor* tintColor;

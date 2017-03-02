@@ -113,7 +113,7 @@
     
     self.backgroundColor = [UIColor clearColor];
     _tintColor = [UIColor whiteColor];
-    self.coverColor = [UIColor colorWithWhite:0 alpha:0.5];
+    self.coverColor = [UIColor colorWithWhite:0 alpha:0.8];
     self.blurRadius = 0.5;
     self.insetX = -5;
     self.insetY = -5;
