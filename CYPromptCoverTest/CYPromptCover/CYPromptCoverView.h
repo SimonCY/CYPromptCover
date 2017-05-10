@@ -66,9 +66,9 @@ typedef NS_ENUM(NSUInteger, CYPromptCoverViewCoverType) {
 
 
 - (instancetype)initWithRevalView:(UIView *)aView;
-//color背景色,aView漏出来的view,aType露出的类型,
+// color背景色,aView漏出来的view,aType露出的类型,
 - (instancetype)initWithBgColor:(UIColor *)aColor revealView:(UIView *)aView revealType:(CYPromptCoverViewRevealType)aType;
-//带模糊背景的初始化
+// 带模糊背景的初始化
 - (instancetype)initWithBlurRadius:(CGFloat)aFloat revealView:(UIView *)aView revealType:(CYPromptCoverViewRevealType)aType;
 
 

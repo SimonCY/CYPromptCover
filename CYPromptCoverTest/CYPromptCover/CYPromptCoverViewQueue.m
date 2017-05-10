@@ -18,7 +18,7 @@ id instance = nil;
 @implementation CYPromptCoverViewQueue
 
 
-
+#pragma mark - init
 - (instancetype)init {
     if (self = [super init]) {
         instance = self;
@@ -67,6 +67,7 @@ id instance = nil;
 
 #pragma mark - coverDelegate
 - (void)CYPromptCoverViewDidClickedDismissBtn:(CYPromptCoverView *)coverView {
+    
     NSUInteger index = [_covers indexOfObject:coverView];
     _showingCover = nil;
     
@@ -84,10 +85,7 @@ id instance = nil;
     
     NSUInteger nextIndex = index + 1;
     
-    
     [self showCoverAtIndex:nextIndex];
-    
-
 }
 
 - (void)CYPromptCoverViewDidClickedNeverBtn:(CYPromptCoverView *)coverView {
