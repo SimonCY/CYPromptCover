@@ -1,4 +1,4 @@
-# CYPromptCoverTest
+![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/logo.PNG)
 
 蒙版模式的新手引导提示，可单独使用，也可以创建蒙版队列，连环使用。
 ------------------------------------------------------
@@ -6,7 +6,7 @@
 
 可以设置蒙版类型为半透明或者模糊，露出区域可以设置为圆角矩形或者椭圆。
 
-![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/ScreenImg/IMG_5209.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/ScreenImg/IMG_5207.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/ScreenImg/IMG_5208.PNG)
+![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_5209.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_5207.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_5208.PNG)
 
 1.单个使用
 
