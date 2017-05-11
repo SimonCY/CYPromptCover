@@ -68,6 +68,8 @@ CYPrompCoverView和CYPrompCoverViewQueue都提供了事件回调，设置代理�
 ## <a id="Hope"></a>Hope
 * If you find bug when used，Hope you can Issues me，Thank you or try to download the latest code of this framework to see the BUG has been fixed or not）
 * If you find the function is not enough when used，Hope you can Issues me，I very much to add more useful function to this framework ，Thank you !
+* 如果使用过程中发现任何问题，欢迎issue我，我会尽快解决。
+* 如果在需求上有任何的意见或者建议，也欢迎issue提出，非常感谢！
 ## Contact to me
 * QQ:397604080  
  
