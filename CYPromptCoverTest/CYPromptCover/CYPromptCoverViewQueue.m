@@ -13,6 +13,7 @@
 @property (nonatomic,weak) UIView* foundationView;
 @end
 
+//设置这个全局变量是对queue进行引用，防止queue创建后自己销毁
 id instance = nil;
 
 @implementation CYPromptCoverViewQueue

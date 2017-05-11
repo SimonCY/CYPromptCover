@@ -133,7 +133,7 @@
     UIImageView *arrowImgView = [[UIImageView alloc] init];
     
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"CYPromptCover" ofType:@"bundle"];
-    NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"arrow.png" ofType:nil];
+    NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_right_down.png" ofType:nil];
     arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
     arrowImgView.frame = CGRectMake(imgViewX, imgViewY, imgViewWH, imgViewWH);
     arrowImgView.contentMode = UIViewContentModeScaleAspectFit;
