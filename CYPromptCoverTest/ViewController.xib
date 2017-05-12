@@ -1,19 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
             <connections>
-                <outlet property="aBtn" destination="5Qd-Qe-wWh" id="G9X-og-gnv"/>
                 <outlet property="aSegement" destination="hv5-Gc-Fs3" id="Akk-ml-qpB"/>
-                <outlet property="aSwitch" destination="VZm-pE-20b" id="3e1-TK-bD8"/>
+                <outlet property="aStepper" destination="1Fi-fD-I0h" id="feh-P1-DMr"/>
+                <outlet property="down" destination="9cZ-it-ZjI" id="MOc-bC-LF1"/>
+                <outlet property="left" destination="N15-Z1-UOn" id="Rgc-1C-LUe"/>
+                <outlet property="left_down" destination="wYb-Qg-1Yq" id="5li-PW-0HE"/>
+                <outlet property="left_up" destination="YCJ-ev-ZEm" id="vh8-Ar-X7Y"/>
+                <outlet property="positionBtn" destination="5bB-0B-k4T" id="JAc-We-4I1"/>
+                <outlet property="right" destination="hTS-vT-dba" id="7k3-bI-kHV"/>
+                <outlet property="right_down" destination="LGr-Dj-cEe" id="6IM-zm-abM"/>
+                <outlet property="right_up" destination="gvy-1K-5xL" id="5IB-FS-EDf"/>
+                <outlet property="typeBtn" destination="5Qd-Qe-wWh" id="6dk-X9-c1H"/>
+                <outlet property="up" destination="nyp-bD-6TT" id="BT0-Go-u52"/>
                 <outlet property="view" destination="iN0-l3-epB" id="uND-Iv-EGs"/>
             </connections>
         </placeholder>
@@ -23,24 +32,104 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qd-Qe-wWh">
-                    <rect key="frame" x="34" y="58" width="62" height="57"/>
+                    <rect key="frame" x="26" y="99" width="123" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
+                    <state key="normal" title="开始演示不同类型"/>
                 </button>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hv5-Gc-Fs3">
-                    <rect key="frame" x="50" y="141" width="121" height="29"/>
+                    <rect key="frame" x="26" y="157" width="121" height="29"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <segments>
                         <segment title="First"/>
                         <segment title="Second"/>
                     </segments>
                 </segmentedControl>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZm-pE-20b">
-                    <rect key="frame" x="71" y="237" width="51" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hTS-vT-dba">
+                    <rect key="frame" x="20" y="318" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="7h0-mU-Ux4"/>
+                        <constraint firstAttribute="width" constant="49" id="XIP-r2-2xP"/>
+                    </constraints>
                 </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N15-Z1-UOn">
+                    <rect key="frame" x="306" y="318" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="49" id="Pas-XG-1ne"/>
+                        <constraint firstAttribute="height" constant="31" id="abk-tT-XJX"/>
+                    </constraints>
+                </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyp-bD-6TT">
+                    <rect key="frame" x="163" y="616" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="9qP-JN-sSv"/>
+                        <constraint firstAttribute="width" constant="49" id="btz-HR-CxZ"/>
+                    </constraints>
+                </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LGr-Dj-cEe">
+                    <rect key="frame" x="20" y="20" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="JmQ-Gh-a5w"/>
+                        <constraint firstAttribute="width" constant="49" id="u3B-n0-ppj"/>
+                    </constraints>
+                </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvy-1K-5xL">
+                    <rect key="frame" x="20" y="616" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="49" id="7lw-eh-XeU"/>
+                        <constraint firstAttribute="height" constant="31" id="KHd-I1-8O5"/>
+                    </constraints>
+                </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YCJ-ev-ZEm">
+                    <rect key="frame" x="306" y="616" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="Efh-Ex-75g"/>
+                        <constraint firstAttribute="width" constant="49" id="kq8-lG-Rii"/>
+                    </constraints>
+                </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wYb-Qg-1Yq">
+                    <rect key="frame" x="306" y="20" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="AgS-gn-W73"/>
+                        <constraint firstAttribute="width" constant="49" id="EOZ-SF-eXg"/>
+                    </constraints>
+                </switch>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9cZ-it-ZjI">
+                    <rect key="frame" x="163" y="20" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="AeR-5B-qJ1"/>
+                        <constraint firstAttribute="width" constant="49" id="Jrr-Fy-7S1"/>
+                    </constraints>
+                </switch>
+                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="1Fi-fD-I0h">
+                    <rect key="frame" x="47" y="193" width="94" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </stepper>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bB-0B-k4T">
+                    <rect key="frame" x="33" y="371" width="123" height="68"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="开始演示不同位置"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="N15-Z1-UOn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="HyG-XJ-Sct"/>
+                <constraint firstAttribute="bottom" secondItem="gvy-1K-5xL" secondAttribute="bottom" constant="20" id="OoB-ql-ZhB"/>
+                <constraint firstAttribute="trailing" secondItem="N15-Z1-UOn" secondAttribute="trailing" constant="20" id="P2S-3H-Qxq"/>
+                <constraint firstItem="gvy-1K-5xL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="PYl-Qx-VPb"/>
+                <constraint firstItem="9cZ-it-ZjI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="SN5-Oa-xdo"/>
+                <constraint firstItem="LGr-Dj-cEe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="WIG-jP-zWo"/>
+                <constraint firstAttribute="trailing" secondItem="wYb-Qg-1Yq" secondAttribute="trailing" constant="20" id="dwN-J9-ImF"/>
+                <constraint firstAttribute="trailing" secondItem="YCJ-ev-ZEm" secondAttribute="trailing" constant="20" id="h0j-aG-vJS"/>
+                <constraint firstAttribute="bottom" secondItem="YCJ-ev-ZEm" secondAttribute="bottom" constant="20" id="jc6-7q-RRk"/>
+                <constraint firstItem="LGr-Dj-cEe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="kRn-dJ-3cK"/>
+                <constraint firstAttribute="bottom" secondItem="nyp-bD-6TT" secondAttribute="bottom" constant="20" id="lNm-OR-rUc"/>
+                <constraint firstItem="9cZ-it-ZjI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="n6t-sK-RgK"/>
+                <constraint firstItem="hTS-vT-dba" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="nv9-ys-bCg"/>
+                <constraint firstItem="hTS-vT-dba" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sii-Ps-Abi"/>
+                <constraint firstItem="nyp-bD-6TT" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wSw-8A-Zv3"/>
+                <constraint firstItem="wYb-Qg-1Yq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="yW3-1M-fqV"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="70.5" y="54.5"/>
         </view>
     </objects>

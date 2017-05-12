@@ -15,6 +15,7 @@
 @property (nonatomic,strong) UIImage* bgImg;
 
 @property (nonatomic,weak) UIImageView* arrowImgView;
+
 @property (nonatomic,weak) UILabel* desLabel;
 @property (nonatomic,weak) UILabel* subDesLabel;
 @property (nonatomic,weak) UIButton* dismissBtn;
@@ -35,7 +36,7 @@
             self.bgImg = [self.class imageWithColor:self.coverColor];
             break;
             
-        case CYPromptCoverViewCoverTypeblurred:
+        case CYPromptCoverViewCoverTypeBlurred:
             self.bgImg = [self.class blurredImageWithImage:[self.class imageFromView:view andOpaque:NO] radius:self.blurRadius iterations:3 tintColor:[UIColor colorWithWhite:0.0f alpha:0.3f]];
             break;
             
@@ -71,46 +72,42 @@
 }
 
 #pragma mark - init
-- (instancetype)initWithBgColor:(UIColor *)aColor revealView:(UIView *)aView revealType:(CYPromptCoverViewRevealType)aType {
+- (instancetype)initWithBgColor:(UIColor *)bgColor revealView:(UIView *)revealView revealType:(CYPromptCoverViewRevealType)revealType layoutType:(CYPromptCoverViewLayoutType)layoutType {
     if (self = [super initWithFrame:[[UIScreen mainScreen]bounds]]) {
-        [self commonSetup];
         
-        self.coverType = CYPromptCoverViewCoverTypeColored;
-        self.revealType = aType;
-        self.revealView = aView;
-        self.coverColor = aColor;
+        [self commonSetupWithCoverType:CYPromptCoverViewCoverTypeColored revealType:revealType revealView:revealView layoutType:layoutType];
 
+        self.coverColor = bgColor;
+        
+        [self setupAttachUI];
     }
     return self;
 }
 
-- (instancetype)initWithBlurRadius:(CGFloat)aFloat revealView:(UIView *)aView revealType:(CYPromptCoverViewRevealType)aType {
+- (instancetype)initWithBlurRadius:(CGFloat)blurRadius revealView:(UIView *)revealView revealType:(CYPromptCoverViewRevealType)revealType layoutType:(CYPromptCoverViewLayoutType)layoutType {
     if (self = [super initWithFrame:[[UIScreen mainScreen]bounds]]) {
-        [self commonSetup];
         
-        self.coverType = CYPromptCoverViewCoverTypeblurred;
-        self.revealType = aType;
-        self.revealView = aView;
-        self.blurRadius = aFloat;
+        [self commonSetupWithCoverType:CYPromptCoverViewCoverTypeBlurred revealType:revealType revealView:revealView layoutType:layoutType];
+ 
+        self.blurRadius = blurRadius;
         
+        [self setupAttachUI];
     }
     return self;
 }
 
-- (instancetype)initWithRevalView:(UIView *)aView {
+- (instancetype)initWithRevalView:(UIView *)revalView layoutType:(CYPromptCoverViewLayoutType)layoutType {
     if (self = [super initWithFrame:[[UIScreen mainScreen]bounds]]) {
-        [self commonSetup];
         
-        self.coverType = CYPromptCoverViewCoverTypeColored;
-        self.revealType = CYPromptCoverViewRevealTypeRect;
-        self.revealView = aView;
-        
+        [self commonSetupWithCoverType:CYPromptCoverViewCoverTypeColored revealType:CYPromptCoverViewRevealTypeRect revealView:revalView layoutType:layoutType];
+ 
+        [self setupAttachUI];
     }
     return self;
 }
 
-- (void)commonSetup {
-    
+- (void)commonSetupWithCoverType:(CYPromptCoverViewCoverType)coverType revealType:(CYPromptCoverViewRevealType)revealType revealView:(UIView *)revealView layoutType:(CYPromptCoverViewLayoutType)layoutType {
+    //some default configuration
     self.backgroundColor = [UIColor clearColor];
     _tintColor = [UIColor whiteColor];
     self.coverColor = [UIColor colorWithWhite:0 alpha:0.8];
@@ -118,6 +115,12 @@
     self.insetX = -5;
     self.insetY = -5;
     
+    self.coverType = coverType;
+    self.revealType = revealType;
+    self.revealView = revealView;
+    self.layoutType = layoutType;
+    
+    self.neverBtnCenter = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, [UIScreen mainScreen].bounds.size.height - 30 - 10);
 }
 
 - (void)setupAttachUI {
@@ -127,42 +130,22 @@
     }
     
     //arrowImageView
-    CGFloat imgViewWH = 30;
-    CGFloat imgViewX = self.revealType? CGRectGetMaxX([self ovalRect]):CGRectGetMaxX([self revealRect]) + 10;
-    CGFloat imgViewY = self.revealType? CGRectGetMaxX([self ovalRect]):CGRectGetMaxY([self revealRect]) - imgViewWH / 2;
     UIImageView *arrowImgView = [[UIImageView alloc] init];
-    
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"CYPromptCover" ofType:@"bundle"];
-    NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_right_down.png" ofType:nil];
-    arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
-    arrowImgView.frame = CGRectMake(imgViewX, imgViewY, imgViewWH, imgViewWH);
     arrowImgView.contentMode = UIViewContentModeScaleAspectFit;
     arrowImgView.backgroundColor = [UIColor clearColor];
     [self addSubview:arrowImgView];
     self.arrowImgView = arrowImgView;
     
     //desLabel
-    CGFloat desLabelW = 1;
-    CGFloat desLabelH = 1;
-    CGFloat desLabelX = CGRectGetMaxX(arrowImgView.frame) - imgViewWH / 2;
-    CGFloat desLabelY = CGRectGetMaxY(arrowImgView.frame) + 10;
     UILabel *desLabel = [[UILabel alloc]init];
-    desLabel.frame = CGRectMake(desLabelX, desLabelY, desLabelW, desLabelH);
     [desLabel setTextColor:_tintColor];
     desLabel.font = [UIFont systemFontOfSize:13];
     desLabel.numberOfLines = 1;
-    desLabel.text = self.des;
-    [desLabel sizeToFit];
     [self addSubview:desLabel];
     self.desLabel = desLabel;
     
     //subDesLabel
-    CGFloat subDesLabelW = 1;
-    CGFloat subDesLabelH = 1;
-    CGFloat subDesLabelX = CGRectGetMinX(desLabel.frame);
-    CGFloat subDesLabelY = CGRectGetMaxY(desLabel.frame) + 10;
     UILabel *subDesLabel = [[UILabel alloc]init];
-    subDesLabel.frame = CGRectMake(subDesLabelX, subDesLabelY, subDesLabelW, subDesLabelH);
     [subDesLabel setTextColor:_tintColor];
     subDesLabel.font = [UIFont systemFontOfSize:11];
     subDesLabel.text = self.detailDes;
@@ -172,13 +155,8 @@
     self.subDesLabel = subDesLabel;
     
     //dismissBtn
-    CGFloat dismissBtnW = 60;
-    CGFloat dismissBtnH = 30;
-    CGFloat dismissBtnX = CGRectGetMinX(subDesLabel.frame);
-    CGFloat dismissBtnY = CGRectGetMaxY(subDesLabel.frame) + 10;
     UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     dismissBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    dismissBtn.frame = CGRectMake(dismissBtnX, dismissBtnY, dismissBtnW, dismissBtnH);
     [dismissBtn setTitle:self.dismissBtnTitle?self.dismissBtnTitle:@"确定" forState:UIControlStateNormal];
     [dismissBtn setTitleColor:_tintColor forState:UIControlStateNormal];
     [dismissBtn setBackgroundColor:[UIColor clearColor]];
@@ -190,13 +168,8 @@
     self.dismissBtn = dismissBtn;
     
     //neverBtn
-    CGFloat neverBtnW = 60;
-    CGFloat neverBtnH = 20;
-    CGFloat neverBtnX = (self.bounds.size.width - neverBtnW) / 2;
-    CGFloat neverBtnY = self.bounds.size.height - neverBtnH - 44;
     UIButton *neverBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     neverBtn.titleLabel.font = [UIFont systemFontOfSize:11];
-    neverBtn.frame = CGRectMake(neverBtnX, neverBtnY, neverBtnW, neverBtnH);
     [neverBtn setTitle:@"不再提示" forState:UIControlStateNormal];
     [neverBtn setTitleColor:_tintColor forState:UIControlStateNormal];
     [neverBtn setBackgroundColor:[UIColor clearColor]];
@@ -208,11 +181,353 @@
     self.neverBtn = neverBtn;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    //neverBtn
+    CGFloat neverBtnW = 60;
+    CGFloat neverBtnH = 20;
+    CGFloat neverBtnX = (self.bounds.size.width - neverBtnW) / 2;
+    CGFloat neverBtnY = self.bounds.size.height - neverBtnH - 30;
+    self.neverBtn.frame = CGRectMake(neverBtnX, neverBtnY, neverBtnW, neverBtnH);
+    self.neverBtn.center = self.neverBtnCenter;
+    
+    CGFloat arrowWH , arrowX, arrowY, desW, desH, desX, desY, subDesW, subDesH, subDesX, subDesY, disMissW, dismissH, dismissX, dismissY;
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"CYPromptCover" ofType:@"bundle"];
+ 
+    //others
+    switch (self.layoutType) {
+        case CYPromptCoverViewLayoutTypeUP: {
+
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_up.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = (self.revealType? [self ovalRect]:[self revealRect]).origin.x + (self.revealType? [self ovalRect]:[self revealRect]).size.width / 2 - arrowWH / 2;
+            arrowY = self.revealType? CGRectGetMinX([self ovalRect]):CGRectGetMinY([self revealRect]) - arrowWH - 10;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMaxX(self.arrowImgView.frame) - arrowWH / 2 ;
+            dismissY = CGRectGetMinY(self.arrowImgView.frame) - dismissH - 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+            self.dismissBtn.center = CGPointMake(self.arrowImgView.center.x, self.dismissBtn.center.y);
+            
+            //subDes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMinX(self.dismissBtn.frame);
+            subDesY = CGRectGetMinY(self.dismissBtn.frame) - subDesH - 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+            self.subDesLabel.center = CGPointMake(self.arrowImgView.center.x, self.subDesLabel.center.y);
+            
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = CGRectGetMinX(self.dismissBtn.frame);
+            desY = CGRectGetMinY(self.subDesLabel.frame) - desH - 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            self.desLabel.center = CGPointMake(self.arrowImgView.center.x, self.desLabel.center.y);
+            break;
+        }
+        case CYPromptCoverViewLayoutTypeLeftUP: {
+            
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_left_up.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = self.revealType? CGRectGetMinX([self ovalRect]):CGRectGetMinX([self revealRect]) -arrowWH - 10;
+            arrowY = self.revealType? CGRectGetMinY([self ovalRect]):CGRectGetMinY([self revealRect]) - arrowWH / 2;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMinX(self.arrowImgView.frame) + arrowWH / 2 - disMissW;
+            dismissY = CGRectGetMinY(self.arrowImgView.frame) - dismissH - 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+            
+            //subDes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMaxX(self.dismissBtn.frame) - subDesW;
+            subDesY = CGRectGetMinY(self.dismissBtn.frame) - subDesH - 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+            
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = CGRectGetMaxX(self.dismissBtn.frame) - desW;
+            desY = CGRectGetMinY(self.subDesLabel.frame) - desH - 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            
+            break;
+
+        }
+        case CYPromptCoverViewLayoutTypeLeft: {
+            
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_left.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = self.revealType? CGRectGetMinX([self ovalRect]):CGRectGetMinX([self revealRect]) - arrowWH - 10;
+            arrowY = self.revealType? CGRectGetMaxY([self ovalRect]):CGRectGetMaxY([self revealRect]) - arrowWH;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = CGRectGetMinX(self.arrowImgView.frame) - desW - 10;
+            desY = CGRectGetMaxY(self.arrowImgView.frame) + 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            self.desLabel.center = CGPointMake(self.desLabel.center.x, self.arrowImgView.center.y);
+            
+            //subDes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMaxX(self.desLabel.frame) - subDesW;
+            subDesY = CGRectGetMaxY(self.desLabel.frame) + 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMaxX(self.subDesLabel.frame) - disMissW;
+            dismissY = CGRectGetMaxY(self.subDesLabel.frame) + 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+            
+            break;
+        }
+        case CYPromptCoverViewLayoutTypeLeftDown: {
+            
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_left_down.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = self.revealType? CGRectGetMinX([self ovalRect]):CGRectGetMinX([self revealRect]) - arrowWH - 10;
+            arrowY = self.revealType? CGRectGetMaxY([self ovalRect]):CGRectGetMaxY([self revealRect]) - arrowWH / 2;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = CGRectGetMinX(self.arrowImgView.frame) - desW + arrowWH / 2;
+            desY = CGRectGetMaxY(self.arrowImgView.frame) + 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            
+            //subDes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMaxX(self.desLabel.frame) - subDesW;
+            subDesY = CGRectGetMaxY(self.desLabel.frame) + 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMaxX(self.subDesLabel.frame) - disMissW;
+            dismissY = CGRectGetMaxY(self.subDesLabel.frame) + 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+
+            break;
+        }
+        case CYPromptCoverViewLayoutTypeDown: {
+ 
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_down.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = (self.revealType? [self ovalRect]:[self revealRect]).origin.x + (self.revealType? [self ovalRect]:[self revealRect]).size.width / 2 - arrowWH / 2;
+            arrowY = self.revealType? CGRectGetMaxX([self ovalRect]):CGRectGetMaxY([self revealRect]) + 10;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = arrowX - desW / 2 + arrowWH / 2;
+            desY = CGRectGetMaxY(self.arrowImgView.frame) + 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            self.desLabel.center = CGPointMake(self.arrowImgView.center.x, self.desLabel.center.y);
+            
+            //subDes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMinX(self.desLabel.frame);
+            subDesY = CGRectGetMaxY(self.desLabel.frame) + 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+            self.subDesLabel.center = CGPointMake(self.arrowImgView.center.x, self.subDesLabel.center.y);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMinX(self.subDesLabel.frame);
+            dismissY = CGRectGetMaxY(self.subDesLabel.frame) + 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+            self.dismissBtn.center = CGPointMake(self.arrowImgView.center.x, self.dismissBtn.center.y);
+            
+            break;
+        }
+        case CYPromptCoverViewLayoutTypeRightDown: {
+            
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_right_down.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = self.revealType? CGRectGetMaxX([self ovalRect]):CGRectGetMaxX([self revealRect]) + 10;
+            arrowY = self.revealType? CGRectGetMaxY([self ovalRect]):CGRectGetMaxY([self revealRect]) - arrowWH / 2;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = CGRectGetMaxX(self.arrowImgView.frame) - arrowWH / 2;
+            desY = CGRectGetMaxY(self.arrowImgView.frame) + 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            
+            //subDes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMinX(self.desLabel.frame);
+            subDesY = CGRectGetMaxY(self.desLabel.frame) + 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMinX(self.subDesLabel.frame);
+            dismissY = CGRectGetMaxY(self.subDesLabel.frame) + 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+            
+            break;
+        }
+        case CYPromptCoverViewLayoutTypeRight: {
+            
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_right.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = self.revealType? CGRectGetMaxX([self ovalRect]):CGRectGetMaxX([self revealRect]) + 10;
+            arrowY = self.revealType? CGRectGetMaxY([self ovalRect]):CGRectGetMaxY([self revealRect]) - arrowWH;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = CGRectGetMaxX(self.arrowImgView.frame) + 10;
+            desY = CGRectGetMaxY(self.arrowImgView.frame) + 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            self.desLabel.center = CGPointMake(self.desLabel.center.x, self.arrowImgView.center.y);
+            
+            //sudes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMinX(self.desLabel.frame);
+            subDesY = CGRectGetMaxY(self.desLabel.frame) + 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMinX(self.subDesLabel.frame);
+            dismissY = CGRectGetMaxY(self.subDesLabel.frame) + 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+            
+            break;
+        }
+        case CYPromptCoverViewLayoutTypeRightUP: {
+
+            //arrow
+            NSString *imgPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"cy_right_up.png" ofType:nil];
+            self.arrowImgView.image = [UIImage imageWithContentsOfFile:imgPath];
+            arrowWH = 30;
+            arrowX = self.revealType? CGRectGetMaxX([self ovalRect]):CGRectGetMaxX([self revealRect]) + 10;
+            arrowY = self.revealType? CGRectGetMinY([self ovalRect]):CGRectGetMinY([self revealRect]) - arrowWH / 2;
+            self.arrowImgView.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);
+            
+            //dismissBtn
+            disMissW = 60;
+            dismissH = 30;
+            dismissX = CGRectGetMaxX(self.arrowImgView.frame) - arrowWH / 2 ;
+            dismissY = CGRectGetMinY(self.arrowImgView.frame) - dismissH - 10;
+            self.dismissBtn.frame = CGRectMake(dismissX, dismissY, disMissW, dismissH);
+
+            //subDes
+            self.subDesLabel.text = self.detailDes;
+            [self.subDesLabel sizeToFit];
+            subDesW = self.subDesLabel.bounds.size.width;
+            subDesH = self.subDesLabel.bounds.size.height;
+            subDesX = CGRectGetMinX(self.dismissBtn.frame);
+            subDesY = CGRectGetMinY(self.dismissBtn.frame) - subDesH - 10;
+            self.subDesLabel.frame = CGRectMake(subDesX, subDesY, subDesW, subDesH);
+
+            //des
+            self.desLabel.text = self.des;
+            [self.desLabel sizeToFit];
+            desW = self.desLabel.bounds.size.width;
+            desH = self.desLabel.bounds.size.height;
+            desX = CGRectGetMinX(self.dismissBtn.frame);
+            desY = CGRectGetMinY(self.subDesLabel.frame) - desH - 10;
+            self.desLabel.frame = CGRectMake(desX, desY, desW, desH);
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark - set
 - (void)setRevealView:(UIView *)revealView {
     _revealView = revealView;
     _revealFrame = [self revealRect];
+    [self setNeedsDisplay];
+    [self setNeedsLayout];
+}
 
+- (void)setDismissBtnTitle:(NSString *)dismissBtnTitle {
+    _dismissBtnTitle = [dismissBtnTitle copy];
+    [_dismissBtn setTitle:dismissBtnTitle forState:UIControlStateNormal];
+    [self setNeedsDisplay];
+}
+
+- (void)setDes:(NSString *)des {
+    _des = [des copy];
+    [self setNeedsLayout];
+}
+
+- (void)setDetailDes:(NSString *)detailDes {
+    _detailDes = [detailDes copy];
+    [self setNeedsLayout];
 }
 
 #pragma mark - drawRect
@@ -221,9 +536,11 @@
     if (!(self.bgImg && self.revealView)) {
         return;
     }
-    if (!self.neverBtn) {
-        [self setupAttachUI];
-    }
+    
+//    if (!self.neverBtn) {
+//        [self setupAttachUI];
+//    }
+    
     [self.bgImg drawInRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetBlendMode(context, kCGBlendModeClear);
@@ -235,8 +552,8 @@
             path = [UIBezierPath bezierPathWithRoundedRect:[self revealRect] cornerRadius:4];
             break;
         case CYPromptCoverViewRevealTypeOval:{
-            CGRect round = [self ovalRect];
-            path = [UIBezierPath bezierPathWithOvalInRect:round];
+            CGRect rect = [self ovalRect];
+            path = [UIBezierPath bezierPathWithOvalInRect:rect];
         }
             break;
         default:
