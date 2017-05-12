@@ -8,33 +8,35 @@
 
 ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7212.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7213.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7214.PNG)
 
-### 
+### 可以设置提示出现在不同的位置。
 
-1.单个使用
+![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7209.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_720.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7211.PNG)
+
+### 1.单个使用
 
 ```objc
-CYPromptCoverView *cover0 = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.aBtn revealType:CYPromptCoverViewRevealTypeOval];
-cover0.des = @"000000000000";
-cover0.detailDes = @"3s 4s 5s";
+    CYPromptCoverView *cover0 = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.typeBtn revealType:CYPromptCoverViewRevealTypeOval layoutType:CYPromptCoverViewLayoutTypeRightDown];
+    cover0.des = @"000000000000";
+    cover0.detailDes = @"3s 4s 5s";
 [Cover showInView:self.view];
 ```
-    
-2.多个提示连环使用
+    
+### 2.多个提示连环使用
   
 ```objc
 //连环使用时，加到queue中的cover的dismissBtnTitle会被自动设置为“下一步”，最后一个cover的dismissBtnTitle设置为“完成”。
 CYPromptCoverViewQueue *queue = [[CYPromptCoverViewQueue alloc] init];
 queue.delegate = self;
     
-CYPromptCoverView *cover0 = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.aBtn revealType:CYPromptCoverViewRevealTypeOval];
+CYPromptCoverView *cover0 = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.aBtn revealType:CYPromptCoverViewRevealTypeOval layoutType:CYPromptCoverViewLayoutTypeDown];
 cover0.des = @"000000000000";
 cover0.detailDes = @"3s 4s 5s";
     
-CYPromptCoverView *cover1  =[[CYPromptCoverView alloc] initWithBlurRadius:0.5 revealView:self.aSegement revealType:CYPromptCoverViewRevealTypeRect];
+CYPromptCoverView *cover1  =[[CYPromptCoverView alloc] initWithBlurRadius:0.5 revealView:self.aSegement revealType:CYPromptCoverViewRevealTypeRect layoutType:CYPromptCoverViewLayoutTypeDown];
 cover1.des = @"111111111";
 cover1.detailDes = @"3s 4s 5s";
 
-CYPromptCoverView *cover2 = [[CYPromptCoverView alloc] initWithRevalView:self.aSwitch];
+CYPromptCoverView *cover2 = [[CYPromptCoverView alloc] initWithRevalView:self.aSwitch layoutType:CYPromptCoverViewLayoutTypeDown];
 cover2.des = @"22222222222";
 cover2.detailDes = @"3s 4s 5s";
     
@@ -44,8 +46,8 @@ cover2.detailDes = @"3s 4s 5s";
     
 [queue showCoversInView:self.view];
 ```
-    
-3.相关回调
+    
+### 3.相关回调
 CYPrompCoverView和CYPrompCoverViewQueue都提供了事件回调，设置代理即可使用。
     
 ```objc
