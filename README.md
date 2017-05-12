@@ -2,7 +2,7 @@
 
 蒙版模式的新手引导提示，可单独使用，也可以创建蒙版队列，连环使用。
 ------------------------------------------------------
-## used
+## Used
 
 ### 可以设置蒙版类型为半透明或者模糊，露出区域可以设置为圆角矩形或者椭圆。
 
@@ -15,9 +15,9 @@
 ### 1.单个使用
 
 ```objc
-    CYPromptCoverView *cover0 = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.typeBtn revealType:CYPromptCoverViewRevealTypeOval layoutType:CYPromptCoverViewLayoutTypeRightDown];
-    cover0.des = @"000000000000";
-    cover0.detailDes = @"3s 4s 5s";
+CYPromptCoverView *cover0 = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.typeBtn revealType:CYPromptCoverViewRevealTypeOval layoutType:CYPromptCoverViewLayoutTypeRightDown];
+cover0.des = @"000000000000";
+cover0.detailDes = @"3s 4s 5s";
 [Cover showInView:self.view];
 ```
     
