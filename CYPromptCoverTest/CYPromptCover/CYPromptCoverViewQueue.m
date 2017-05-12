@@ -36,7 +36,6 @@ id instance = nil;
         _covers = [NSMutableArray array];
     }
     [_covers addObject:aCover];
-    aCover.dismissBtnTitle = @"下一步";
     aCover.delegate = self;
 }
 
@@ -59,8 +58,16 @@ id instance = nil;
 - (void)showCoverAtIndex:(NSUInteger)index {
     CYPromptCoverView *cover = _covers[index];
     
-    if (index == (_covers.count - 1)) {
+    if (index == 0) {
+        cover.dismissDuration = 0;
+        cover.dismissBtnTitle = @"下一步";
+    } else if (index == (_covers.count - 1)) {
+        cover.showDuration = 0;
         cover.dismissBtnTitle = @"完成";
+    } else {
+        cover.showDuration = 0;
+        cover.dismissDuration = 0;
+        cover.dismissBtnTitle = @"下一步";
     }
     [cover showInView:self.foundationView];
     _showingCover = cover;

@@ -49,7 +49,7 @@
     [view addSubview:self];
     [view setNeedsDisplay];
     
-    [UIView animateWithDuration:0.1 delay:0
+    [UIView animateWithDuration:self.showDuration delay:0
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          self.alpha = 1.0f;
@@ -59,7 +59,7 @@
 
 - (void)dismiss {
     
-    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:self.dismissDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
         self.alpha = 0.0f;
     } completion:^(BOOL finished) {
@@ -112,6 +112,8 @@
     _tintColor = [UIColor whiteColor];
     self.coverColor = [UIColor colorWithWhite:0 alpha:0.8];
     self.blurRadius = 0.5;
+    self.showDuration = 0.2;
+    self.dismissDuration = 0.2;
     self.insetX = -5;
     self.insetY = -5;
     

@@ -61,7 +61,10 @@ typedef NS_ENUM(NSUInteger, CYPromptCoverViewLayoutType) {
 //white
 @property (nonatomic,strong,readonly) UIColor* tintColor;
 
-
+//default is 0.2
+@property (nonatomic,assign) CGFloat showDuration;
+//default is 0.2
+@property (nonatomic,assign) CGFloat dismissDuration;
 
 //x轴外扩的值   default is -5
 @property(nonatomic,assign) CGFloat insetX;
