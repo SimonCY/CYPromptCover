@@ -10,14 +10,15 @@
 
 ### 可以设置提示出现在不同的位置。
 
-![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7209.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_720.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7211.PNG)
+![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7209.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7210.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7211.PNG)
 
 ### 1.单个使用
 
 ```objc
-CYPromptCoverView *cover0 = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.typeBtn revealType:CYPromptCoverViewRevealTypeOval layoutType:CYPromptCoverViewLayoutTypeRightDown];
-cover0.des = @"000000000000";
-cover0.detailDes = @"3s 4s 5s";
+CYPromptCoverView *cover = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.typeBtn revealType:CYPromptCoverViewRevealTypeOval layoutType:CYPromptCoverViewLayoutTypeRightDown];
+cover.des = @"000000000000";
+cover.detailDes = @"3s 4s 5s";
+cover.delegate = self;
 [Cover showInView:self.view];
 ```
     
