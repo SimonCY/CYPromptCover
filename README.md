@@ -1,6 +1,6 @@
 ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/logo.PNG)
 
-##### 蒙版模式的新手引导提示，可单独使用，也可以创建蒙版队列，连环使用。
+#### 蒙版模式的新手引导提示，可单独使用，也可以创建蒙版队列，连环使用。
 
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/AAChartModel/AAChartKit/blob/master/AAChartKit/ChartsDemo/LICENSE)&nbsp;
 [![Support](https://img.shields.io/badge/support-iOS%206%2B%20-blue.svg?style=flat)](https://www.apple.com/nl/ios/)&nbsp;
@@ -8,15 +8,15 @@
 ------------------------------------------------------
 ## Usage
 
-### 可以设置蒙版类型为半透明或者模糊，露出区域可以设置为圆角矩形或者椭圆。
+#### 可以设置蒙版类型为半透明或者模糊，露出区域可以设置为圆角矩形或者椭圆。
 
 ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7212.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7213.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7214.PNG)
 
-### 可以设置提示出现在不同的位置。
+#### 可以设置提示出现在不同的位置。
 
 ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7209.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7210.PNG) ![这里写图片描述](https://github.com/SimonCY/CYPromptCoverTest/raw/master/Img/IMG_7211.PNG)
 
-### 1.单个使用
+#### 1.单个使用
 
 ```objc
 CYPromptCoverView *cover = [[CYPromptCoverView alloc] initWithBgColor:[UIColor colorWithWhite:0 alpha:0.5] revealView:self.typeBtn revealType:CYPromptCoverViewRevealTypeOval layoutType:CYPromptCoverViewLayoutTypeRightDown];
@@ -26,7 +26,7 @@ cover.delegate = self;
 [Cover showInView:self.view];
 ```
     
-### 2.多个提示连环使用
+#### 2.多个提示连环使用
   
 ```objc
 //连环使用时，加到queue中的cover的dismissBtnTitle会被自动设置为“下一步”，最后一个cover的dismissBtnTitle设置为“完成”。
@@ -52,7 +52,7 @@ cover2.detailDes = @"3s 4s 5s";
 [queue showCoversInView:self.view];
 ```
     
-### 3.相关回调
+#### 3.相关回调
 CYPrompCoverView和CYPrompCoverViewQueue都提供了事件回调，设置代理即可使用。
     
 ```objc
